@@ -133,6 +133,7 @@ android {
         applicationId 'com.chano.rnTestApp'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        missingDimensionStrategy 'store', 'play'
         versionCode 1
         versionName "1.0.0"
     }
@@ -182,6 +183,14 @@ android {
 }
 
 dependencies {
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:28.4.2')
+
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation 'com.google.firebase:firebase-analytics'
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
@@ -240,3 +249,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
 
 apply from: new File(["node", "--print", "require.resolve('@react-native-community/cli-platform-android/package.json')"].execute().text.trim(), "../native_modules.gradle");
 applyNativeModulesAppBuildGradle(project)
+
+apply plugin: 'com.google.gms.google-services'
