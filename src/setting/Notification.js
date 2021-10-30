@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Alert, Image, StatusBar, StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styled from "styled-components";
+import notifee from '@notifee/react-native';
 
 const Container = styled.View`
   position: relative;
@@ -103,12 +104,36 @@ function FocusAwareStatusBar(props) {
   return isFocused ? <StatusBar {...props} /> : null;
 }
 
+// 알림
+async function onDisplayNotification() {
+  // Create a channel
+  const channelId = await notifee.createChannel({
+    id: 'default',
+    name: 'Default Channel',
+  });
+
+  // Display a notification
+  await notifee.displayNotification({
+    title: 'Notification Title',
+    body: 'Main body content of the notification',
+    android: {
+      channelId,
+    },
+  });
+}
+
 const pushSelects = ['on', 'off'];
 const benefitSelects = ['on', 'off'];
 
 const Notification = () => {
   const [push, setPush] = useState(pushSelects[1]);
   const [benefit, setBenefit] = useState(benefitSelects[1]);
+
+  
+  function clickEvent(select) {
+    setPush(select);
+    onDisplayNotification();
+  }
 
   return (
     <Container>
@@ -128,7 +153,7 @@ const Notification = () => {
             <ToggleBtn
               key={select}
               active={push === select}
-              onPress={() => setPush(select)}
+              onPress={() => clickEvent(select)}
               style={(index === 0) && { marginRight: 16 }}
             >
               <ToggleText>{select}</ToggleText>
