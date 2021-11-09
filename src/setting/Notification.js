@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Alert, Image, StatusBar, StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styled from "styled-components";
+import NotifService from "../services/NotifService";
 
 const Container = styled.View`
   position: relative;
@@ -110,6 +111,14 @@ const Notification = () => {
   const [push, setPush] = useState(pushSelects[1]);
   const [benefit, setBenefit] = useState(benefitSelects[1]);
 
+  // 버튼 동작
+  const notif = new NotifService();
+
+  function onPushClick(select) {
+    setPush(select);
+    notif.localNotif();
+  };
+
   return (
     <Container>
       <FocusAwareStatusBar barStyle="light-content" backgroundColor="#141212" />
@@ -128,7 +137,7 @@ const Notification = () => {
             <ToggleBtn
               key={select}
               active={push === select}
-              onPress={() => setPush(select)}
+              onPress={() => onPushClick(select)}
               style={(index === 0) && { marginRight: 16 }}
             >
               <ToggleText>{select}</ToggleText>
