@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Alert, Image, StatusBar, StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styled from "styled-components";
-import NotifService from "../services/NotifService";
 
 const Container = styled.View`
   position: relative;
@@ -112,11 +111,11 @@ const Notification = () => {
   const [benefit, setBenefit] = useState(benefitSelects[1]);
 
   // 버튼 동작
-  const notif = new NotifService();
+  // const notif = new NotifService();
 
   function onPushClick(select) {
     setPush(select);
-    notif.localNotif();
+    // notif.localNotif();
   };
 
   return (
