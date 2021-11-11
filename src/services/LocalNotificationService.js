@@ -42,35 +42,66 @@ class LocalNotificationService {
              */
             requestPermissions: true,
         });
+    };
+
+    createPushChannel = () => {
+        // push 알림 채널
         PushNotification.createChannel(
             {
-                channelId: "default-channel-id", // (required)
-                channelName: "Default channel", // (required)
-                channelDescription: "A default channel", // (optional) default: undefined.
+                channelId: "push-channel", // (required)
+                channelName: "Push channel", // (required)
+                channelDescription: "Push Notification channel", // (optional) default: undefined.
                 soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
                 importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
                 vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
             },
-            (created) => console.log(`createChannel 'default-channel-id' returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
+            (created) => console.log(`createChannel 'push-channel' returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
         );
     };
+
+    createBenefitChannel = () => {
+        // 혜택 및 마케팅 알림 채널
+        PushNotification.createChannel(
+            {
+                channelId: "benefit-channel", // (required)
+                channelName: "benefit channel", // (required)
+                channelDescription: "Benefit Notification channel", // (optional) default: undefined.
+                soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
+                importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
+                vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
+            },
+            (created) => console.log(`createChannel 'benefit-channel' returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
+        );
+    }
 
     unRegister = () => {
         PushNotification.unregister();
     };
 
-    showNotification = (id, title, message, data = {}, options = {}) => {
+    showPushNotification = (id, title, message, data = {}, options = {}) => {
         PushNotification.localNotification({
             /* Android only properties */
             ...this.buildAndroidNotification(id, title, message, data, options),
             /* iOS and Android properties */
-            channelId: 'default-channel-id',
+            channelId: 'push-channel',
             title: title || '', // (optional)
             message: message || '', // (required)
-            userInfo: { screen: 'home' }, // (optional) default: {} (using null throws a JSON value '<null>' error)
             playSound: options.playSound || false, // (optional) default: true
             soundName: options.soundName || 'defalut', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
-            number: 10, // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
+            userInteraction: false,
+        });
+    };
+
+    showBenefitNotification = (id, title, message, data = {}, options = {}) => {
+        PushNotification.localNotification({
+            /* Android only properties */
+            ...this.buildAndroidNotification(id, title, message, data, options),
+            /* iOS and Android properties */
+            channelId: 'benefit-channel',
+            title: title || '', // (optional)
+            message: message || '', // (required)
+            playSound: options.playSound || false, // (optional) default: true
+            soundName: options.soundName || 'defalut', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
             userInteraction: false,
         });
     };
@@ -91,6 +122,10 @@ class LocalNotificationService {
         };
     };
 
+    requestPermissions = () => {
+        return PushNotification.requestPermissions();
+    }
+
     cancelAllLocalNotifications = () => {
         if (Platform.OS === 'ios') {
             PushNotificationIOS.removeAllDeliveredNotifications();
@@ -99,11 +134,25 @@ class LocalNotificationService {
         }
     };
 
-    removeDeliveredNotificationByID = (notification) => {
-        console.log('[LocalNotificationService] removeDeliveredNotificationByID : ', notification);
+    removeDeliveredNotificationByID = (id) => {
+        console.log('[LocalNotificationService] removeDeliveredNotificationByID : ', id);
 
-        PushNotification.cancelLocalNotification({ id: `${notificationId}` });
+        PushNotification.cancelLocalNotification(id);
     };
+
+    channelDelete = (channelId) => {
+        console.log('[LocalNotificationService] channelDelete : ', channelId);
+
+        PushNotification.deleteChannel(channelId);
+    }
+
+    getChannel = () => {
+        console.log('[LocalNotificationService] getChannel');
+
+        PushNotification.getChannels(function (channelId) {
+            console.log(channelId);
+        });
+    }
 };
 
 export const localNotificationService = new LocalNotificationService();

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Alert, Image, StatusBar, StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styled from "styled-components";
+import { localNotificationService } from "../services/LocalNotificationService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Container = styled.View`
   position: relative;
@@ -106,16 +108,39 @@ function FocusAwareStatusBar(props) {
 const pushSelects = ['on', 'off'];
 const benefitSelects = ['on', 'off'];
 
-const Notification = () => {
+const Notification = ({ navigation, i }) => {
   const [push, setPush] = useState(pushSelects[1]);
   const [benefit, setBenefit] = useState(benefitSelects[1]);
+  const [tasks, setTasks] = useState({});
 
-  // 버튼 동작
-  // const notif = new NotifService();
-
+  // Push 알림 버튼 동작
   function onPushClick(select) {
     setPush(select);
-    // notif.localNotif();
+    if (select === 'off') {
+      localNotificationService.channelDelete('push-channel');
+    } else if (select === 'on') {
+      localNotificationService.createPushChannel();
+    }
+  };
+
+  // 혜택 알림 버튼 동작
+  function onBenefitClick(select) {
+    setBenefit(select);
+    if (select === 'off') {
+      localNotificationService.channelDelete('benefit-channel');
+    } else if (select === 'on') {
+      localNotificationService.createBenefitChannel();
+    }
+  }
+
+  // 설정 완료 버튼 동작
+  const _saveTasks = async tasks => {
+    try {
+      await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+      setTasks(tasks);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -157,7 +182,7 @@ const Notification = () => {
             <ToggleBtn
               key={select}
               active={benefit === select}
-              onPress={() => setBenefit(select)}
+              onPress={() => onBenefitClick(select)}
               style={(index === 0) && { marginRight: 16 }}
             >
               <ToggleText>{select}</ToggleText>

@@ -23,13 +23,20 @@ const App = () => {
                 soundName: 'default',
                 playSound: true,
             };
-            localNotificationService.showNotification(
+            localNotificationService.showPushNotification(
                 0,
                 notify.title,
                 notify.body,
                 notify,
                 options,
             );
+            // localNotificationService.showBenefitNotification(
+            //     1,
+            //     notify.title,
+            //     notify.body,
+            //     notify,
+            //     options,
+            // );
         }
 
         function onOpenNotification(notify) {
