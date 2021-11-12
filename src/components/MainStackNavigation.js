@@ -1,15 +1,15 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Pay from "../Pay";
-import User from "../setting/User"
-import Subscribe from "../setting/Subscribe"
-import Notification from "../setting/Notification"
-import Qna from "../setting/Qna"
-import Faq from "../setting/Faq"
-import Notice from "../setting/Notice"
-import Version from "../setting/Version"
+import User from "../screen/setting/User"
+import Subscribe from "../screen/setting/Subscribe"
+import Notification from "../screen/setting/Notification"
+import Qna from "../screen/setting/Qna"
+import Faq from "../screen/setting/Faq"
+import Notice from "../screen/setting/Notice"
+import Version from "../screen/setting/Version"
 import TabNavigation from "./TabNavigation";
-import Leave from "../Leave";
+import Leave from "../screen/setting/Leave";
 
 const Stack = createStackNavigator();
 
@@ -217,6 +217,16 @@ const MainStackNavigation = () => {
 
             return { cardStyle: { opacity, transform: [{ translateX }] } };
           },
+          headerStyle: {
+            elevation: 0, // remove shadow on Android
+            shadowOpacity: 0, // remove shadow on iOS
+            borderBottomWidth: 0, // Just in case.
+            backgroundColor: "#141212",
+          },
+          headerTitleStyle: {
+            color: '#141212',
+          },
+          headerTintColor: "#fff",
         }}
       />
     </Stack.Navigator>

@@ -164,7 +164,7 @@ const User = ({ navigation }) => {
 
       <StyledText>이메일 주소</StyledText>
       <EmailView>
-        <Image source={require("../../assets/icon/kakao_logo.png")} style={styles.image} />
+        <Image source={require("../../../assets/icon/kakao_logo.png")} style={styles.image} />
         <EmailText>Test@naver.com</EmailText>
       </EmailView>
 

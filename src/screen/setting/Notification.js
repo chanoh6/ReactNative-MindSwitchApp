@@ -128,7 +128,7 @@ const Notification = ({ navigation, i }) => {
       <FocusAwareStatusBar barStyle="light-content" backgroundColor="#141212" />
 
       <ImageView>
-        <Image source={require("../../assets/lightbulb.gif")} style={styles.image} />
+        <Image source={require("../../../assets/lightbulb.gif")} style={styles.image} />
       </ImageView>
 
       <FlexView>
