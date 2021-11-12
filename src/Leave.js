@@ -2,6 +2,7 @@ import { useIsFocused } from "@react-navigation/core";
 import React from "react";
 import { StatusBar } from "react-native";
 import styled from "styled-components";
+import FooterButton from "./components/FooterButton";
 
 const Container = styled.View`
     position: relative;
@@ -27,27 +28,6 @@ const SubText = styled.Text`
     margin-top: 16px;
 `;
 
-const SetBtnView = styled.View`
-  flex: 1;
-  justify-content: flex-end;
-`;
-
-const SetButton = styled.TouchableOpacity`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 16px 0;
-  background-color: #42a5f5;
-  border-radius: 30px;
-`;
-
-const ButtonTit = styled.Text`
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-`;
-
 function FocusAwareStatusBar(props) {
     const isFocused = useIsFocused();
 
@@ -67,11 +47,7 @@ const Leave = ({ navigation }) => {
                 아직 들어보지 못한 콘텐츠들이 많이 남아있어요. 지금 계정을 삭제하면 프리미엄 콘텐츠를 들으실 수 없어요. 블림프를 다시 이용하면서 휴식 시간을 즐겨 보세요.
             </SubText>
 
-            <SetBtnView>
-                <SetButton>
-                    <ButtonTit>계속 진행</ButtonTit>
-                </SetButton>
-            </SetBtnView>
+            <FooterButton title="계속 진행" />
         </Container>
     );
 };

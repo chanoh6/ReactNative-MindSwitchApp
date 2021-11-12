@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button, Image, StatusBar, StyleSheet, Text, View } from "react-native";
 import styled from "styled-components";
 import Modal from "react-native-modal";
+import FooterButton from "../components/FooterButton";
 
 const Container = styled.View`
   position: relative;
@@ -61,27 +62,6 @@ const LogoutText = styled.Text`
   font-size: 14px;
   color: #D3D3D3;
   text-decoration: underline;
-`;
-
-const SetBtnView = styled.View`
-  flex: 1;
-  justify-content: flex-end;
-`;
-
-const SetButton = styled.TouchableOpacity`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 16px 0;
-  background-color: #42a5f5;
-  border-radius: 30px;
-`;
-
-const ButtonTit = styled.Text`
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
 `;
 
 const AuthText = styled.Text`
@@ -170,15 +150,11 @@ const User = ({ navigation }) => {
         <ModalView>
           <ModalTit>계정을 로그아웃 할까요?</ModalTit>
 
-          <SetBtnView>
-            <SetButton>
-              <ButtonTit>로그아웃</ButtonTit>
-            </SetButton>
+          <FooterButton title="로그아웃" />
 
-            <AuthView onPress={() => setModalVisible(false)}>
-              <ModalBackText>돌아가기</ModalBackText>
-            </AuthView>
-          </SetBtnView>
+          <AuthView onPress={() => setModalVisible(false)}>
+            <ModalBackText>돌아가기</ModalBackText>
+          </AuthView>
         </ModalView>
       </Modal>
 
@@ -196,15 +172,11 @@ const User = ({ navigation }) => {
         <LogoutText>로그아웃</LogoutText>
       </AuthView>
 
-      <SetBtnView>
-        <SetButton>
-          <ButtonTit>설정 완료</ButtonTit>
-        </SetButton>
+      <FooterButton title="설정 완료" />
 
-        <AuthView onPress={() => navigation.navigate("Leave")}>
-          <AuthText>계정 탈퇴</AuthText>
-        </AuthView>
-      </SetBtnView>
+      <AuthView onPress={() => navigation.navigate("Leave")}>
+        <AuthText>계정 탈퇴</AuthText>
+      </AuthView>
     </Container >
   );
 };

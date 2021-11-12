@@ -22,6 +22,7 @@ import RNIap, {
 } from "react-native-iap";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
+import FooterButton from "./components/FooterButton";
 
 const itemSkus = Platform.select({
   ios: [
@@ -186,7 +187,7 @@ const PayButton = styled.TouchableOpacity`
   justify-content: center;
   width: 100%;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 16px 0;
   background-color: #42a5f5;
   border-radius: 30px;
 `;
@@ -449,10 +450,11 @@ const Pay = ({ navigation }) => {
         </TextView>
 
         <PayButton
-          onPress={(): void => this.requestSubscription(product.productId)}
+        // onPress={(): void => this.requestSubscription(product.productId)}
         >
           <ButtonTit>무료 체험 및 구독 시작하기</ButtonTit>
         </PayButton>
+        {/* <FooterButton title="무료 체험 및 구독 시작하기" /> */}
       </BackgroundImg>
     </Container>
   );

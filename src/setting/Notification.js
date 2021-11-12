@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styled from "styled-components";
 import { localNotificationService } from "../services/LocalNotificationService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import FooterButton from "../components/FooterButton";
 
 const Container = styled.View`
   position: relative;
@@ -69,27 +70,6 @@ const InfoText = styled.Text`
   color: gray;
   text-align: center;
   margin-bottom: 16px;
-`;
-
-const SetBtnView = styled.View`
-  flex: 1;
-  justify-content: flex-end;
-`;
-
-const SetButton = styled.TouchableOpacity`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 16px 0;
-  background-color: #42a5f5;
-  border-radius: 30px;
-`;
-
-const ButtonTit = styled.Text`
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
 `;
 
 const styles = StyleSheet.create({
@@ -193,11 +173,7 @@ const Notification = ({ navigation, i }) => {
 
       <InfoText>다양한 혜택을 푸시로 알려드립니다.</InfoText>
 
-      <SetBtnView>
-        <SetButton>
-          <ButtonTit>설정 완료</ButtonTit>
-        </SetButton>
-      </SetBtnView>
+      <FooterButton title="설정 완료" />
     </Container>
   );
 };
