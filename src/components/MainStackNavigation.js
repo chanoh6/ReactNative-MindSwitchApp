@@ -9,6 +9,7 @@ import Faq from "../setting/Faq"
 import Notice from "../setting/Notice"
 import Version from "../setting/Version"
 import TabNavigation from "./TabNavigation";
+import Leave from "../Leave";
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,38 @@ const MainStackNavigation = () => {
         options={{ headerShown: false, presentation: 'modal' }}
       />
       <Stack.Screen
+        name="Leave"
+        component={Leave}
+        options={{
+          cardStyleInterpolator: ({ index, current, next, layouts: { screen } }) => {
+            const translateX = current.progress.interpolate({
+              inputRange: [index - 1, index, index + 1],
+              outputRange: [screen.width, 0, 0],
+            });
+
+            const opacity = next?.progress.interpolate({
+              inputRange: [0, 1, 2],
+              outputRange: [1, 0, 0],
+            });
+
+            return { cardStyle: { opacity, transform: [{ translateX }] } };
+          },
+          title: "계정 탈퇴",
+          headerTitleAlign: "center",
+          headerStyle: {
+            elevation: 0, // remove shadow on Android
+            shadowOpacity: 0, // remove shadow on iOS
+            borderBottomWidth: 0, // Just in case.
+            backgroundColor: "#141212",
+          },
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 24,
+          },
+          headerTintColor: "#fff",
+        }}
+      />
+      <Stack.Screen
         name="User"
         component={User}
         options={{
@@ -44,6 +77,19 @@ const MainStackNavigation = () => {
 
             return { cardStyle: { opacity, transform: [{ translateX }] } };
           },
+          title: "내 정보",
+          headerTitleAlign: "center",
+          headerStyle: {
+            elevation: 0, // remove shadow on Android
+            shadowOpacity: 0, // remove shadow on iOS
+            borderBottomWidth: 0, // Just in case.
+            backgroundColor: "#141212",
+          },
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 24,
+          },
+          headerTintColor: "#fff",
         }}
       />
       <Stack.Screen
