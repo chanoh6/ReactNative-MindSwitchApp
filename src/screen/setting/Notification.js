@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Alert, Image, StatusBar, StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styled from "styled-components";
-import { localNotificationService } from "../services/LocalNotificationService";
+import { localNotificationService } from "../../services/LocalNotificationService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import FooterButton from "../components/FooterButton";
+import FooterButton from "../../components/FooterButton";
 
 const Container = styled.View`
   position: relative;

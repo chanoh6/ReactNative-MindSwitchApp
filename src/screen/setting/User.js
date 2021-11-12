@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button, Image, StatusBar, StyleSheet, Text, View } from "react-native";
 import styled from "styled-components";
 import Modal from "react-native-modal";
-import FooterButton from "../components/FooterButton";
+import FooterButton from "../../components/FooterButton";
 
 const Container = styled.View`
   position: relative;

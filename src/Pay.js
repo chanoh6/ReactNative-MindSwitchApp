@@ -22,7 +22,6 @@ import RNIap, {
 } from "react-native-iap";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
-import FooterButton from "./components/FooterButton";
 
 const itemSkus = Platform.select({
   ios: [
