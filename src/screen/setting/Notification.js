@@ -4,8 +4,9 @@ import { Alert, Image, StatusBar, StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import styled from "styled-components";
 import { localNotificationService } from "../../services/LocalNotificationService";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import FooterButton from "../../components/FooterButton";
+import AsyncStorage from '@react-native-community/async-storage';
+import SwitchToggle from "../../components/SwitchToggle";
 
 const Container = styled.View`
   position: relative;
@@ -85,13 +86,24 @@ function FocusAwareStatusBar(props) {
   return isFocused ? <StatusBar {...props} /> : null;
 }
 
-const pushSelects = ['on', 'off'];
-const benefitSelects = ['on', 'off'];
+// const pushSelects = ['on', 'off'];
+// const benefitSelects = ['on', 'off'];
 
-const Notification = ({ navigation, i }) => {
-  const [push, setPush] = useState(pushSelects[1]);
-  const [benefit, setBenefit] = useState(benefitSelects[1]);
+const Notification = ({ navigation }) => {
+  // const [push, setPush] = useState(pushSelects[1]);
+  // const [benefit, setBenefit] = useState(benefitSelects[1]);
   const [tasks, setTasks] = useState({});
+  const [isPushToggle, setIsPushToggle] = useState(false);
+  const [isBenenfitToggle, setIsBenefitToggle] = useState(false);
+
+  // Toggle 버튼 동작
+  const _pushToggleSwitch = () => {
+    setIsPushToggle(!isPushToggle);
+  };
+
+  const _benefitToggleSwitch = () => {
+    setIsBenefitToggle(!isBenenfitToggle);
+  };
 
   // Push 알림 버튼 동작
   function onPushClick(select) {
@@ -114,7 +126,7 @@ const Notification = ({ navigation, i }) => {
   }
 
   // 설정 완료 버튼 동작
-  const _saveTasks = async tasks => {
+  const _saveTask = async tasks => {
     try {
       await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
       setTasks(tasks);
@@ -137,16 +149,17 @@ const Notification = ({ navigation, i }) => {
         <FlexText>PUSH 알림 받기</FlexText>
 
         <BtnFlexView>
-          {pushSelects.map((select, index) => (
+          {/* {pushSelects.map((select, index) => (
             <ToggleBtn
               key={select}
               active={push === select}
-              onPress={() => onPushClick(select)}
+              onPress={() => _pushTask(select)}
               style={(index === 0) && { marginRight: 16 }}
             >
               <ToggleText>{select}</ToggleText>
             </ToggleBtn>
-          ))}
+          ))} */}
+          <SwitchToggle isOn={isPushToggle} onToggle={_pushToggleSwitch} />
         </BtnFlexView>
       </FlexView>
 
@@ -158,7 +171,7 @@ const Notification = ({ navigation, i }) => {
         <FlexText>혜택 및 마케팅 알림</FlexText>
 
         <BtnFlexView>
-          {benefitSelects.map((select, index) => (
+          {/* {benefitSelects.map((select, index) => (
             <ToggleBtn
               key={select}
               active={benefit === select}
@@ -167,7 +180,8 @@ const Notification = ({ navigation, i }) => {
             >
               <ToggleText>{select}</ToggleText>
             </ToggleBtn>
-          ))}
+          ))} */}
+          <SwitchToggle isOn={isBenenfitToggle} onToggle={_benefitToggleSwitch} />
         </BtnFlexView>
       </FlexView>
 
