@@ -26,14 +26,14 @@ const TermContainer = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   background-color: #000;
-  padding: 8px; 0;
   border-radius: 32px;
-  margin-top: 8px;
-  width: 70%;
+  margin: 8px auto 0 auto;
+  width: 250px;
+  height: 45px;
 `;
 
 const TermText = styled.Text`
-  font-size: 16px;
+  font-size: 15px;
   color: #fff;
 `;
 

@@ -11,15 +11,15 @@ const SetButton = styled.TouchableOpacity`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  padding: 16px 0;
+  width: 250px;
+  height: 45px
+  margin: 0 auto;
   background-color: #42a5f5;
   border-radius: 30px;
 `;
 
 const ButtonTit = styled.Text`
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 15px;
   color: #fff;
 `;
 

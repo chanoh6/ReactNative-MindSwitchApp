@@ -198,6 +198,19 @@ const MainStackNavigation = () => {
 
             return { cardStyle: { opacity, transform: [{ translateX }] } };
           },
+          title: "공지사항",
+          headerTitleAlign: "center",
+          headerStyle: {
+            elevation: 0, // remove shadow on Android
+            shadowOpacity: 0, // remove shadow on iOS
+            borderBottomWidth: 0, // Just in case.
+            backgroundColor: "#141212",
+          },
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontSize: 24,
+          },
+          headerTintColor: "#fff",
         }}
       />
       <Stack.Screen
